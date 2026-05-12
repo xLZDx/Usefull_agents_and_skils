@@ -1,11 +1,13 @@
 ---
 name: trading-bot-helper
-description: Context loader for the AI Trading Assistance project at D:\test 2\AI trading assistance. Use when working with the trading engine, dashboard, training pipeline, ParquetClient/DuckDB, or any source under that directory. Loads architecture, key file paths, training rules matrix, and operational defaults.
+description: Context loader template for an AI trading bot project. Customize paths under `<project-root>` for your own setup. Use when working with the trading engine, dashboard, training pipeline, ParquetClient/DuckDB, or any source under the project directory. Loads architecture, key file paths, training rules matrix, and operational defaults.
 ---
 
-# AI Trading Assistance — Skill Context
+# AI Trading Bot — Skill Context (template)
 
-This skill loads the project's architectural truth so you don't have to grep for it.
+This skill loads architectural truth for an AI trading bot project so you don't have to grep for it.
+
+> Replace `<project-root>` with your own absolute path before use.
 
 ## Entry points
 - Trading engine: `src/main.py`
@@ -14,25 +16,25 @@ This skill loads the project's architectural truth so you don't have to grep for
 - Stop everything: `stop_all.ps1`
 
 ## Architecture
-- **DB:** ParquetClient (DuckDB + partitioned Parquet on `data/db/`). File-based, no daemon. Replaces QuestDB after Phase 1–5 migration.
-- **Historical OHLCV:** 48 GB served by `parquet_store.py` from `data/parquet/`.
+- **DB:** ParquetClient (DuckDB + partitioned Parquet on `data/db/`). File-based, no daemon.
+- **Historical OHLCV:** served by `parquet_store.py` from `data/parquet/`.
 - **State files:** all JSON I/O through `src/utils/safe_json.py` (filelock atomic writes).
 - **Constants:** centralized in `src/utils/config.py`.
 - **Execution model:** strictly sequential inside the bot loop — no parallelism.
 
 ## Defaults (do not override silently)
 - **Testnet only** — never switch to Mainnet without explicit user instruction.
-- DuckDB connections must set `temp_directory='D:/test 2/AI trading assistance/data/cache/duckdb_temp'`.
-- Gemini fallback chain starts with `gemini-3.1-pro-preview`. Update when a newer model releases.
-- Bot is **personal use only** — never propose Stripe / marketplace / multi-tenant / public onboarding features. Goal: profit + capital preservation FOR THE OPERATOR.
+- DuckDB connections must set `temp_directory='<project-root>/data/cache/duckdb_temp'`.
+- LLM fallback chain: keep the latest model first; update when newer models release.
+- Bot is **personal use only** — never propose multi-tenant / public onboarding features. Goal: profit + capital preservation for the operator.
 
 ## Training pipeline
 - Cluster orchestrator: port 7700 (`src/server/control_plane.py` or similar).
-- 4 lane agents per Phase 100 plan (`core/PHASE_100_CLUSTER_ROUTED_TRAINING.md`).
+- 4 lane agents per the cluster-routed training plan (`core/PHASE_100_CLUSTER_ROUTED_TRAINING.md`).
 - Model × TF coverage matrix in `data/training_rules.json` — READ ON EVERY TRAINING STARTUP. Source of truth for which (model, timeframe) cells are applicable / experimental / skip.
-- Worker laptop "Ivan" launcher: `C:\ai-worker\restart_workers.ps1` (canonical restart, hardened with taskkill /F /T + WMI verify + port fallback). This is the documented harness-imposed C:-drive bridge — all data + logs the worker produces still land on D:.
-- Worker SMB mount via `MicrosoftAccount\<email>`.
-- Single-instance lock: `data/train_all_models.lock` (Phase 97).
+- Worker laptop launcher: `<worker-launcher-path>` (hardened with taskkill /F /T + WMI verify + port fallback).
+- Worker SMB mount via account configured outside this repo.
+- Single-instance lock: `data/train_all_models.lock`.
 
 ## Tests
 - `tests/test_dashboard.py` is the canonical regression suite. 0 failures gates every push.
@@ -47,11 +49,11 @@ This skill loads the project's architectural truth so you don't have to grep for
 - `/api/strategy/full` for ML model summary.
 
 ## Key plans (read in this order for full context)
-1. `PLAN_2026_05_08_outstanding.md` — priority-ordered roadmap; P0 retrain gaps → P3 perf.
+1. `PLAN_<date>_outstanding.md` — priority-ordered roadmap.
 2. `core/PHASE_100_CLUSTER_ROUTED_TRAINING.md` — current training architecture.
 3. `core/SPRINT_1A_PER_MODEL_AGENTS_AND_KPI.md` — per-model agent refactor + KPI gate.
-4. `TECH_IMPLEMENTATION_PLAN_2026-05-10.md` — file-level plan for Sprint 0 / 0a / 0b / 0c hardening.
-5. `COMPETITIVE_ASSESSMENT_2026-05-10_v2.md` — 48-item roadmap, heavily pruned by the personal-use reframe.
+4. `TECH_IMPLEMENTATION_PLAN_<date>.md` — file-level plan for hardening sprints.
+5. `COMPETITIVE_ASSESSMENT_<date>.md` — feature roadmap.
 
 ## Inherits global rules
-This project inherits all rules from `D:\test 2\CLAUDE.md` (approval gate, no-guessing, regression tests, D:-drive-only, git lifecycle including todo-in-commits).
+This project inherits rules from `<workspace-root>/CLAUDE.md` (approval gate, no-guessing, regression tests, disk policy, git lifecycle including todo-in-commits).
