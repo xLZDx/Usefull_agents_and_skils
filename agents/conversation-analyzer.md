@@ -1,8 +1,11 @@
 ---
 name: conversation-analyzer
-description: Use this agent when analyzing conversation transcripts to find behaviors worth preventing with hooks. Triggered by /hookify without arguments.
+description: Analyze conversation transcripts to find behaviors worth blocking via hooks. Triggered by /hookify.
 model: sonnet
 tools: [Read, Grep]
+tier: D
+token_budget_round1_words: 250
+token_budget_round_n_words: 100
 ---
 
 # Conversation Analyzer Agent

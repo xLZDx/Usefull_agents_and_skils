@@ -1,8 +1,11 @@
 ---
 name: silent-failure-hunter
-description: Review code for silent failures, swallowed errors, bad fallbacks, and missing error propagation.
+description: Find silent failures, swallowed errors, bad fallbacks, missing error propagation.
 model: sonnet
-tools: [Read, Grep, Glob, Bash]
+tools: ["Read", "Grep", "Glob"]
+tier: A
+token_budget_round1_words: 600
+token_budget_round_n_words: 250
 ---
 
 # Silent Failure Hunter Agent

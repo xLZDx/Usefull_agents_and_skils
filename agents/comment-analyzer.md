@@ -1,8 +1,11 @@
 ---
 name: comment-analyzer
-description: Analyze code comments for accuracy, completeness, maintainability, and comment rot risk.
-model: sonnet
-tools: [Read, Grep, Glob, Bash]
+description: Analyze code comments for accuracy, completeness, comment rot risk.
+model: haiku
+tools: ["Read", "Grep", "Glob"]
+tier: C
+token_budget_round1_words: 350
+token_budget_round_n_words: 150
 ---
 
 # Comment Analyzer Agent

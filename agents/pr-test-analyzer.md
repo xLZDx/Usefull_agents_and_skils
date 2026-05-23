@@ -1,8 +1,11 @@
 ---
 name: pr-test-analyzer
-description: Review pull request test coverage quality and completeness, with emphasis on behavioral coverage and real bug prevention.
-model: sonnet
-tools: [Read, Grep, Glob, Bash]
+description: PR test coverage review: behavioral coverage + real bug prevention.
+model: haiku
+tools: ["Read", "Grep", "Glob"]
+tier: C
+token_budget_round1_words: 350
+token_budget_round_n_words: 150
 ---
 
 # PR Test Analyzer Agent

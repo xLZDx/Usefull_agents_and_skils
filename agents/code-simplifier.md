@@ -1,8 +1,11 @@
 ---
 name: code-simplifier
-description: Simplifies and refines code for clarity, consistency, and maintainability while preserving behavior. Focus on recently modified code unless instructed otherwise.
+description: Simplify recently-modified code for clarity/consistency while preserving behavior.
 model: sonnet
 tools: [Read, Write, Edit, Bash, Grep, Glob]
+tier: B
+token_budget_round1_words: 500
+token_budget_round_n_words: 200
 ---
 
 # Code Simplifier Agent

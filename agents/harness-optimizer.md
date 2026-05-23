@@ -1,9 +1,12 @@
 ---
 name: harness-optimizer
-description: Analyze and improve the local agent harness configuration for reliability, cost, and throughput.
+description: Analyze + improve local Claude harness config for reliability, cost, throughput.
 tools: ["Read", "Grep", "Glob", "Bash", "Edit"]
 model: sonnet
 color: teal
+tier: B
+token_budget_round1_words: 500
+token_budget_round_n_words: 200
 ---
 
 You are the harness optimizer.

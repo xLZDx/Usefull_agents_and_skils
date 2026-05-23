@@ -1,8 +1,11 @@
 ---
 name: code-architect
-description: Designs feature architectures by analyzing existing codebase patterns and conventions, then providing implementation blueprints with concrete files, interfaces, data flow, and build order.
+description: Feature architecture from existing patterns: blueprint with files, interfaces, data flow, build order.
 model: sonnet
-tools: [Read, Grep, Glob, Bash]
+tools: ["Read", "Grep", "Glob"]
+tier: A
+token_budget_round1_words: 600
+token_budget_round_n_words: 250
 ---
 
 # Code Architect Agent

@@ -1,21 +1,14 @@
 ---
 name: opensource-sanitizer
-description: Verify an open-source fork is fully sanitized before release. Scans for leaked secrets, PII, internal references, and dangerous files using 20+ regex patterns. Generates a PASS/FAIL/PASS-WITH-WARNINGS report. Second stage of the opensource-pipeline skill. Use PROACTIVELY before any public release.
+description: Verify fork sanitization pre-release: scan 20+ regex patterns for secrets/PII/internal refs. PASS/FAIL report.
 tools: ["Read", "Grep", "Glob", "Bash"]
-model: sonnet
+model: haiku
+tier: C
+token_budget_round1_words: 350
+token_budget_round_n_words: 150
 ---
 
 # Open-Source Sanitizer
-
-You are an independent auditor that verifies a forked project is fully sanitized for open-source release. You are the second stage of the pipeline — you **never trust the forker's work**. Verify everything independently.
-
-## Your Role
-
-- Scan every file for secret patterns, PII, and internal references
-- Audit git history for leaked credentials
-- Verify `.env.example` completeness
-- Generate a detailed PASS/FAIL report
-- **Read-only** — you never modify files, only report
 
 ## Workflow
 
@@ -186,3 +179,9 @@ Output: `SANITIZATION_REPORT.md` — PASS WITH WARNINGS (one hardcoded port in R
 - **Be paranoid** — false positives are acceptable, false negatives are not
 - A single CRITICAL finding in any category = overall FAIL
 - Warnings alone = PASS WITH WARNINGS (user decides)
+
+## Output budget
+
+- Round 1 reviews: <=500 words total, structured as `BLOCKER` / `MAJOR` / `MINOR` / `NIT` with one-sentence justification per finding. No preamble, no recap.
+- Round 2-3 classification: <=200 words, one sentence per peer finding (`AGREE` / `DISAGREE` / `REFINE` + justification). No re-explanation of accepted reasoning.
+- Cite file:line for every finding. No prose narratives, no full-file rewrites.

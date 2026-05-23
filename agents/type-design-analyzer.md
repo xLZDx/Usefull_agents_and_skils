@@ -1,8 +1,11 @@
 ---
 name: type-design-analyzer
-description: Analyze type design for encapsulation, invariant expression, usefulness, and enforcement.
+description: Analyze type design: encapsulation, invariant expression, usefulness, enforcement.
 model: sonnet
-tools: [Read, Grep, Glob, Bash]
+tools: ["Read", "Grep", "Glob"]
+tier: B
+token_budget_round1_words: 500
+token_budget_round_n_words: 200
 ---
 
 # Type Design Analyzer Agent

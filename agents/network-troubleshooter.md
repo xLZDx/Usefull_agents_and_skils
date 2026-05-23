@@ -1,8 +1,11 @@
 ---
 name: network-troubleshooter
-description: Diagnoses network connectivity, routing, DNS, interface, and policy symptoms with a read-only OSI-layer workflow and evidence-backed root cause summary.
+description: Network diagnostics (connectivity/routing/DNS/policy) with OSI-layer read-only workflow + RCA.
 tools: ["Read", "Bash", "Grep"]
 model: sonnet
+tier: B
+token_budget_round1_words: 500
+token_budget_round_n_words: 200
 ---
 
 You are a senior network troubleshooting agent. You diagnose symptoms

@@ -1,8 +1,11 @@
 ---
 name: code-explorer
-description: Deeply analyzes existing codebase features by tracing execution paths, mapping architecture layers, and documenting dependencies to inform new development.
+description: Trace execution paths, map architecture layers, document dependencies in existing code.
 model: sonnet
-tools: [Read, Grep, Glob, Bash]
+tools: ["Read", "Grep", "Glob"]
+tier: B
+token_budget_round1_words: 500
+token_budget_round_n_words: 200
 ---
 
 # Code Explorer Agent

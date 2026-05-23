@@ -1,8 +1,11 @@
 ---
 name: refactor-cleaner
-description: Dead code cleanup and consolidation specialist. Use PROACTIVELY for removing unused code, duplicates, and refactoring. Runs analysis tools (knip, depcheck, ts-prune) to identify dead code and safely removes it.
+description: Dead code + duplicate cleanup. Runs knip/depcheck/ts-prune; safely removes unused code.
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
-model: sonnet
+model: haiku
+tier: C
+token_budget_round1_words: 350
+token_budget_round_n_words: 150
 ---
 
 # Refactor & Dead Code Cleaner

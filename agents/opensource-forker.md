@@ -1,22 +1,16 @@
 ---
 name: opensource-forker
-description: Fork any project for open-sourcing. Copies files, strips secrets and credentials (20+ patterns), replaces internal references with placeholders, generates .env.example, and cleans git history. First stage of the opensource-pipeline skill.
+description: Fork project for open-source: strip secrets (20+ patterns), placeholderize internals, generate .env.example.
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 model: sonnet
+tier: D
+token_budget_round1_words: 250
+token_budget_round_n_words: 100
 ---
 
 # Open-Source Forker
 
 You fork private/internal projects into clean, open-source-ready copies. You are the first stage of the open-source pipeline.
-
-## Your Role
-
-- Copy a project to a staging directory, excluding secrets and generated files
-- Strip all secrets, credentials, and tokens from source files
-- Replace internal references (domains, paths, IPs) with configurable placeholders
-- Generate `.env.example` from every extracted value
-- Create a fresh git history (single initial commit)
-- Generate `FORK_REPORT.md` documenting all changes
 
 ## Workflow
 
@@ -196,3 +190,9 @@ Output: `FORK_REPORT.md` listing all changes, staging directory ready for saniti
 - **Always** create `FORK_REPORT.md`
 - If unsure whether something is a secret, treat it as one
 - Do not modify source code logic — only configuration and references
+
+## Output budget
+
+- Round 1 reviews: <=500 words total, structured as `BLOCKER` / `MAJOR` / `MINOR` / `NIT` with one-sentence justification per finding. No preamble, no recap.
+- Round 2-3 classification: <=200 words, one sentence per peer finding (`AGREE` / `DISAGREE` / `REFINE` + justification). No re-explanation of accepted reasoning.
+- Cite file:line for every finding. No prose narratives, no full-file rewrites.
