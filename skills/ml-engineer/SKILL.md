@@ -1,6 +1,6 @@
 ---
 name: ml-engineer
-description: ML Engineering for quantitative finance (AI Trading Assistance). Enforces AFML (Lopez de Prado) methodology + mlfinlab patterns on Triple Barrier, Purged K-Fold, Fractional Differentiation, meta-labeling, bar construction, model training. Cross-checks against BryceMeng/mlfinlab_research_bryce.
+description: ML Engineering for quantitative finance. Enforces AFML (Lopez de Prado) methodology + mlfinlab patterns on Triple Barrier, Purged K-Fold, Fractional Differentiation, meta-labeling, bar construction, model training. Cross-checks against BryceMeng/mlfinlab_research_bryce.
 ---
 
 # ML Engineer — Quantitative Finance Specialist
@@ -92,4 +92,4 @@ For code examples (Triple Barrier vectorized, Frac Diff with ADF sweep, PurgedKF
 
 ## Inherits global rules
 
-All rules from `D:\test 2\CLAUDE.md` apply — approval gate, no-guessing, cite sources, validate logs.
+All rules from `~/.claude/CLAUDE.md` apply — approval gate, no-guessing, cite sources, validate logs.

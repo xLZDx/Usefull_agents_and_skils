@@ -103,10 +103,10 @@ Stacked reduction levers:
 
 Mandated by Multi-Agent Plan Review to Consensus rule:
 - `C:\Users\koros\.claude\CLAUDE.md` — user-home global
-- `D:\test 2\CLAUDE.md` — volume-level mirror
+- `~/.claude/CLAUDE.md` — volume-level mirror
 
 Findings cache:
-- `D:\test 2\AI trading assistance\core\KNOWN_OBJECTIONS.md` — pre-confirmed objections (KO-001..KO-060+); fed to round-1 agents to skip re-derivation.
+- `<project>/core/KNOWN_OBJECTIONS.md` — pre-confirmed objections (KO-001..KO-060+); fed to round-1 agents to skip re-derivation.
 
 Memory:
-- `~/.claude/projects/d--test-2-AI-trading-assistance/memory/feedback_agent_consensus_loop.md`
+- `~/.claude/projects/<your-project>/memory/feedback_agent_consensus_loop.md`

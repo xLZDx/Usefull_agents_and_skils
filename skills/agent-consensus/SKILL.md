@@ -31,7 +31,7 @@ Only **T4** runs the full loop. T1 skipped. T2/T3 stop after round 1 (or 2 if fi
 
 ### Round 0 — Structured Recon + Triage (T3/T4 only)
 
-Spawn ONE `code-explorer` (or `Explore`) with plan + agent roster (`D:\test 2\CLAUDE.md`) + findings cache (`D:\test 2\AI trading assistance\core\KNOWN_OBJECTIONS.md`). Agent MUST return JSON per the schema in `REFERENCE.md` (no preamble): `plan_tier`, `domains_touched`, `relevant_agents[]`, `skip_agents[]`, `known_objection_matches[]`.
+Spawn ONE `code-explorer` (or `Explore`) with plan + agent roster (`~/.claude/CLAUDE.md`) + findings cache (`<project>/core/KNOWN_OBJECTIONS.md`). Agent MUST return JSON per the schema in `REFERENCE.md` (no preamble): `plan_tier`, `domains_touched`, `relevant_agents[]`, `skip_agents[]`, `known_objection_matches[]`.
 
 Spawn EXACTLY the agents in `relevant_agents` — do not subjectively second-guess. If a relevant agent is missing, fix the recon prompt and re-run round 0; do not patch the roster.
 
@@ -76,7 +76,7 @@ Hard max **4 rounds**. After 4: stop, surface unresolved items with each agent's
 ## When to invoke
 
 - Operator types `/agent-consensus` explicitly.
-- Implicitly for any architectural / multi-phase / multi-file plan (mandated by `D:\test 2\CLAUDE.md`).
+- Implicitly for any architectural / multi-phase / multi-file plan (mandated by `~/.claude/CLAUDE.md`).
 - Plans touching: new modules, risk/governance, ML pipeline, data infra, cross-project refactor, security-sensitive surfaces.
 
 ## When NOT to invoke

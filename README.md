@@ -1,61 +1,47 @@
-# Useful Agents and Skills for Claude Code
+# Useful Agents & Skills
 
-A collection of subagents and skills for [Claude Code](https://claude.com/claude-code).
+A reusable, sanitized toolkit for [Claude Code](https://claude.com/claude-code): a roster of specialist sub-agents, generic skills, a token-cost-control hook, reusable workflow rules, and the tooling used to optimize agent prompts.
 
-## Contents
+Everything here is **generic** — no secrets, no PII, no project-specific paths (project references were placeholderized to `<PROJECT_ROOT>`).
 
-- **`agents/`** — 36 specialized subagents (code review, build resolution, planning, refactoring, security, etc.)
-- **`skills/`** — 7 skills (project context loaders, planners, skill creator)
+## Structure
 
-## Installation
-
-Copy the folders into your global Claude config:
-
-```powershell
-# Windows
-Copy-Item agents\* "$env:USERPROFILE\.claude\agents\" -Recurse
-Copy-Item skills\* "$env:USERPROFILE\.claude\skills\" -Recurse
+```
+agents/        37 specialist sub-agent specs (reviewers, resolvers, architects, ...)
+skills/        6 generic skills:
+               - agent-consensus       (multi-round peer-review loop)
+               - ml-engineer           (AFML / quant ML review)
+               - skill-creator         (author new skills)
+               - implementation-planner
+               - software-architect
+               - polyglot-developer-assistant
+hooks/         agent_spawn_gate.py     (PreToolUse hard-gate: blocks >3 heavy
+                                         agent spawns in a burst without a tier-ack)
+rules/         reusable workflow rules (paste into your CLAUDE.md):
+               - gate-based-development.md
+               - approval-gate.md
+               - multi-agent-consensus.md
+               - commit-lifecycle.md
+tools/         token-optimization tooling + golden fixtures (audit, trim,
+               tier-metadata, Haiku migration, regression fixtures)
+settings.snippet.json   how to wire the hook into .claude/settings.json
 ```
 
-```bash
-# macOS / Linux
-cp -r agents/* ~/.claude/agents/
-cp -r skills/* ~/.claude/skills/
-```
+## Install
 
-Restart Claude Code and the new agents/skills will be available.
+- **Agents:** copy `agents/*.md` into `~/.claude/agents/`.
+- **Skills:** copy each `skills/<name>/` into `~/.claude/skills/`.
+- **Rules:** paste the contents of `rules/*.md` into your global `~/.claude/CLAUDE.md` (or a project `CLAUDE.md`). They are written to be project-agnostic.
+- **Hook:** copy `hooks/agent_spawn_gate.py` into your project (e.g. `tools/hooks/`), then add the `settings.snippet.json` block to your project `.claude/settings.json` (replace `<PROJECT_ROOT>` and `<PY>`). Gitignore the runtime state dir `data/agent_review/`.
 
-## Agents Overview
+## The agent-spawn hard-gate (token control)
 
-### Code Review & Quality
-`code-reviewer`, `python-reviewer`, `cpp-reviewer`, `flutter-reviewer`, `fastapi-reviewer`, `database-reviewer`, `network-config-reviewer`, `security-reviewer`, `code-architect`, `code-explorer`, `pr-test-analyzer`, `comment-analyzer`, `type-design-analyzer`, `silent-failure-hunter`
+`hooks/agent_spawn_gate.py` is a `PreToolUse` hook on the `Agent` tool. It counts **heavy** spawns in a rolling 30s window and **denies the 4th+** unless a sentinel `data/agent_review/tier_ack.json` (written when you announce a confirmed T4 tier) is younger than 120s. "Light" (uncounted) = effective model is `haiku`. It is **fail-open** (any hook error -> the tool proceeds), stdlib-only, ASCII. This prevents accidental "spawn 6 heavy agents at once" token burns. See `rules/multi-agent-consensus.md` for the matching tiering policy.
 
-### Build / Error Resolution
-`build-error-resolver`, `cpp-build-resolver`, `dart-build-resolver`, `pytorch-build-resolver`
+## Token-optimization tooling (`tools/`)
 
-### Planning & Architecture
-`architect`, `planner`
-
-### Testing & Operations
-`tdd-guide`, `e2e-runner`, `network-troubleshooter`, `loop-operator`, `harness-optimizer`, `training-inspector`
-
-### Refactoring & Cleanup
-`code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `doc-updater`
-
-### Specialized
-`a11y-architect`, `seo-specialist`, `conversation-analyzer`
-
-### Open-Source Pipeline
-`opensource-forker`, `opensource-sanitizer`, `opensource-packager`
-
-## Skills Overview
-
-- `implementation-planner` — Step-by-step execution plans
-- `polyglot-developer-assistant` — Multi-language dev assistant
-- `software-architect` — Architecture and system design
-- `skill-creator` — Create / edit / improve skills
-- `trading-bot-helper`, `fitness-app-helper`, `arbitrage-helper` — Project-specific context loaders (may need path adjustments for your environment)
+Scripts that trim agent prompts + tool whitelists, add tier/budget metadata, and migrate classifier agents to Haiku — with a golden-fixture regression gate (`tools/agent_fixtures/`). Backups default to `~/.claude/agent_backups/`. Re-runnable (idempotent). These produced a ~-68% input-token reduction on a representative multi-agent review in the source project.
 
 ## License
 
-MIT
+Use freely.
