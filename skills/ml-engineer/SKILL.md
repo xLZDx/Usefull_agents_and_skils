@@ -11,10 +11,10 @@ Code examples + AFML chapter cross-refs + known BUG patterns are in `REFERENCE.m
 
 - **Marcos Lopez de Prado — *Advances in Financial Machine Learning* (AFML)** — the bible.
 - `mlfinlab` Python library (Hudson & Thames) — canonical implementation.
-- `data/references/mlfinlab_research_bryce/` — local BryceMeng playbook clone.
+- `<your local mlfinlab/AFML reference clone>` — local BryceMeng playbook clone.
 - All ML decisions cross-checked against AFML chapter + mlfinlab source before implementation.
 
-**Rejection baseline (do NOT copy):** `data/references/Advanced-Multi-Asset/` — student project; uses `train_test_split`, no PurgedKFold, no meta-labeling, no triple barrier. Patterns found there indicate a bug in our code.
+**Rejection baseline (do NOT copy):** `<a known-bad student-project baseline>` — student project; uses `train_test_split`, no PurgedKFold, no meta-labeling, no triple barrier. Patterns found there indicate a bug in our code.
 
 ## Canonical file map
 
@@ -26,8 +26,8 @@ Code examples + AFML chapter cross-refs + known BUG patterns are in `REFERENCE.m
 | `src/analysis/meta_labeler.py` | Meta-labeler inference |
 | `src/utils/meta_config.py` | Unified 23-feature META_FEATURES |
 | `src/engine/cio_agent.py` | Optuna CIO orchestrator |
-| `data/references/mlfinlab_research_bryce/` | BryceMeng playbooks (read-only) |
-| `data/references/optuna-dashboard/` | Optuna dashboard source (read-only) |
+| `<your local mlfinlab/AFML reference clone>` | BryceMeng playbooks (read-only) |
+| `<optuna-dashboard source>` | Optuna dashboard source (read-only) |
 
 ## Hard mandates (one-liners — see REFERENCE.md for code)
 

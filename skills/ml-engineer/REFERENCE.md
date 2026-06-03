@@ -152,7 +152,7 @@ The `src/engine/cio_agent.py` objective function must:
 4. Return OOS Sortino ratio (NOT Sharpe — Sortino penalizes downside only).
 5. Apply Deflated Sharpe Ratio correction before trusting best trial.
 
-Reference: `data/references/optuna-dashboard/` for dashboard integration patterns.
+Reference: `<optuna-dashboard source>` for dashboard integration patterns.
 
 ## Known bugs (as of 2026-05-13)
 
