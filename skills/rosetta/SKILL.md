@@ -56,13 +56,29 @@ on-demand equivalent: zero tokens until invoked, no hook, no plugin, immune to u
 - Read the actual logs for ERROR/WARN; check the dashboard banner. A 200 is necessary, not sufficient.
 - Clean up validation artifacts. Verify Before Claiming Fixed. Functional tests prove behavior.
 
-### Review step (R3 — route to THIS operator's agents, NOT Rosetta's generic subagents)
-- Agent review stays OPT-IN: run it when the operator asks, or when this `/rosetta` flow reaches a
-  non-trivial code boundary AND the operator has GO'd the build.
-- Route by the CLAUDE.md Agent routing table: `python-reviewer` (.py), `security-reviewer` (auth/secrets),
-  `ml-engineer` (AFML), `database-reviewer` (SQL), `silent-failure-hunter`, `flutter-reviewer`, etc.
-- For architectural plans use the `/agent-consensus` skill (recon -> tiered panel -> consensus).
-- Empiricism over Poetry: cross-check every load-bearing finding against the cited file:line; reject poetry.
+## Phase R — Review (route to THIS operator's specialist agents; OPT-IN)
+
+Fires when: (a) the operator asks, OR (b) this `/rosetta` flow reaches a non-trivial code boundary
+AND the operator has GO'd the build. NEVER auto-fires in current-flow mode. Tier it per the CLAUDE.md
+Cost-Aware Consensus table: T1 skip · T2 = 3 agents / 1 round · T3 = 5-7 · T4 = full consensus (up to 4 rounds).
+For T3/T4 do `code-explorer` recon FIRST, then triage the roster against the real surface.
+
+Route by file / domain (CLAUDE.md Agent routing table) — NOT Rosetta's generic subagents:
+- `.py` -> `python-reviewer` · C++ -> `cpp-reviewer` · Dart/Flutter -> `flutter-reviewer` + `dart-build-resolver`
+- FastAPI -> `fastapi-reviewer` · SQL / DuckDB / Postgres -> `database-reviewer`
+- auth / secrets / SSRF / injection -> `security-reviewer` (ALWAYS, in addition to the language reviewer)
+- AFML / Triple-Barrier / Purged-KFold / meta-labeling -> `ml-engineer`
+- error handling / fallbacks -> `silent-failure-hunter` · types / invariants -> `type-design-analyzer`
+- architecture -> `architect` + `code-architect` · multi-phase plans -> `planner`
+- comments -> `comment-analyzer` · dead code -> `refactor-cleaner` · perf -> `performance-optimizer`
+- tests -> `pr-test-analyzer` / `tdd-guide` · + any specialist from the CLAUDE.md routing table
+- Architectural / multi-domain plans: use the `/agent-consensus` skill (recon -> tiered panel -> converge).
+
+Discipline:
+- Spawn the relevant agents in PARALLEL (one message, multiple Agent calls). Announce tier + est. calls first.
+- Empiricism over Poetry: cross-check every load-bearing finding against the cited `file:line`;
+  label confabulations, reject poetry, promote facts / best-practice / PMF-blockers.
+- Present the CONSENSUS, not the initial draft. Address findings before the commit.
 
 ## Validation checklist (before "done")
 - Compiles, no warnings; all tests pass (incl. pre-existing); env config works across targets.
