@@ -1,6 +1,7 @@
 ---
 name: ml-engineer
 description: Financial ML (AFML/mlfinlab): Triple Barrier, Purged K-Fold, Frac Diff, meta-labeling, CUSUM, bar construction.
+model: sonnet
 tier: A
 token_budget_round1_words: 600
 token_budget_round_n_words: 250
