@@ -102,8 +102,8 @@ Stacked reduction levers:
 ## Cross-reference
 
 Mandated by Multi-Agent Plan Review to Consensus rule:
-- `C:\Users\koros\.claude\CLAUDE.md` — user-home global
-- `~/.claude/CLAUDE.md` — volume-level mirror
+- `~/.claude/CLAUDE.md` — user-home global (canonical)
+- `<your-projects-volume>/CLAUDE.md` — volume-level rules for a group of projects
 
 Findings cache:
 - `<project>/core/KNOWN_OBJECTIONS.md` — pre-confirmed objections (KO-001..KO-060+); fed to round-1 agents to skip re-derivation.
